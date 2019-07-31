@@ -37,6 +37,7 @@ dependencies {
     implementation project(Modules.navigator)
     implementation project(Modules.detail)
     implementation project(Modules.home)
+    implementation project(Modules.widget)
 
     implementation Libs.kotlinStd
     implementation Libs.koin

@@ -1,1 +1,1 @@
-include ':app', ':networking', ':core', ':navigator', ':detail', ':home'
+include ':app', ':networking', ':core', ':navigator', ':detail', ':home', ':widget'

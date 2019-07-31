@@ -7,4 +7,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.DetailActivity">
 
+    <TextView android:id="@+id/tvCharName" android:layout_width="match_parent" android:layout_height="match_parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

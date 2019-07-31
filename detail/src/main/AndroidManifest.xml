@@ -3,12 +3,7 @@
           package="com.wcisang.detail">
 
     <application>
-        <activity android:name=".ui.DetailActivity">
-            <intent-filter>
-                <action android:name="com.jeroenmols.modularization.sharing.open" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.DetailActivity"/>
     </application>
 
 </manifest>

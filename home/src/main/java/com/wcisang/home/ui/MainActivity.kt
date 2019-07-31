@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(){
     private fun startDetail(character: Character) {
         val bundle = Bundle()
         bundle.putParcelable(Action.KEY_CHARACTER, character)
-        startActivity(Action.getDetailActivityIntent(bundle, this))
+        startActivity(Action.getDetailActivityIntent(this, bundle))
     }
 
     private fun registerObserver() {

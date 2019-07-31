@@ -4,4 +4,5 @@ object Modules {
     const val navigator = ":navigator"
     const val detail = ":detail"
     const val home = ":home"
+    const val widget = ":widget"
 }
