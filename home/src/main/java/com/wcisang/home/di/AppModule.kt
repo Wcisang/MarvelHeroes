@@ -1,7 +1,7 @@
-package com.wcisang.marvelheroes.di
+package com.wcisang.home.di
 
-import com.wcisang.marvelheroes.ui.MainViewModel
-import com.wcisang.marvelheroes.usecase.GetCharactersUseCase
+import com.wcisang.home.ui.MainViewModel
+import com.wcisang.home.usecase.GetCharactersUseCase
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module

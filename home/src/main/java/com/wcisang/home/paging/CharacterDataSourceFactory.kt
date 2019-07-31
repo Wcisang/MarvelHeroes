@@ -1,10 +1,10 @@
-package com.wcisang.marvelheroes.paging
+package com.wcisang.home.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.wcisang.core.domain.model.Character
 import com.wcisang.core.state.Resource
-import com.wcisang.marvelheroes.usecase.GetCharactersUseCase
+import com.wcisang.home.usecase.GetCharactersUseCase
 import kotlinx.coroutines.CoroutineScope
 
 class CharacterDataSourceFactory (

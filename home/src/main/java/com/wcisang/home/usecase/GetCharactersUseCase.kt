@@ -1,4 +1,4 @@
-package com.wcisang.marvelheroes.usecase
+package com.wcisang.home.usecase
 
 import com.wcisang.core.data.repository.MarvelRepository
 import com.wcisang.core.domain.model.Character

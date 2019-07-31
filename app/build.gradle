@@ -24,6 +24,7 @@ android {
     dataBinding {
         enabled = true
     }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
@@ -33,17 +34,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(Modules.core)
+    implementation project(Modules.navigator)
+    implementation project(Modules.detail)
+    implementation project(Modules.home)
 
     implementation Libs.kotlinStd
-    implementation Libs.appCompat
-    implementation Libs.coreKtx
-    implementation Libs.constraintLayout
-    implementation Libs.lifecycle
-    implementation Libs.viewModel
     implementation Libs.koin
-    implementation Libs.koinViewModel
-    implementation Libs.paging
-
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

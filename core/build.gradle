@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -28,11 +28,12 @@ android {
         targetCompatibility = '1.8'
     }
 
-    androidExtensions {
-        experimental = true
-    }
-
 }
+
+androidExtensions {
+    experimental = true
+}
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

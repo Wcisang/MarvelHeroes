@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.wcisang.detail">
+
+    <application>
+        <activity android:name=".ui.DetailActivity">
+            <intent-filter>
+                <action android:name="com.jeroenmols.modularization.sharing.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

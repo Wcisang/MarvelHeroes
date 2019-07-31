@@ -1,6 +1,9 @@
 package com.wcisang.core.domain.model
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Character (
 
 	@Json(name="id") val id : Int,
@@ -14,4 +17,4 @@ data class Character (
 	@Json(name="stories") val stories : Stories,
 	@Json(name="events") val events : Events,
 	@Json(name="urls") val urls : List<Urls>
-)
+) : Parcelable
