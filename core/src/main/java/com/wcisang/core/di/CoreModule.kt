@@ -10,7 +10,7 @@ import org.koin.dsl.module
 val coreModule: List<Module>
     get() = listOf(serviceModule, repositoryModule)
 
-private val serviceModule = module {
+val serviceModule = module {
     single { ServiceBuilder.createService(MarvelService::class.java) }
 }
 

@@ -17,10 +17,6 @@ android {
 
     }
 
-    dataBinding {
-        enabled = true
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -35,6 +31,7 @@ dependencies {
 
     implementation project(Modules.core)
     implementation project(Modules.navigator)
+    testImplementation project(Modules.testutils)
 
     implementation Libs.kotlinStd
     implementation Libs.appCompat
@@ -45,6 +42,12 @@ dependencies {
     implementation Libs.koin
     implementation Libs.koinViewModel
     implementation Libs.paging
+    implementation Libs.picasso
+    implementation Libs.pallete
+    implementation Libs.anko
+
+    testImplementation LibsTest.mockitoKotlin
+    testImplementation LibsTest.coroutinesTest
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'

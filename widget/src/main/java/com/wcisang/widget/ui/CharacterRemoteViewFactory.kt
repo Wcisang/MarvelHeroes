@@ -42,6 +42,7 @@ class CharacterRemoteViewFactory(
                     .forCharacter(3, 1)
             )
             if (result.status == Resource.Status.SUCCESS) {
+                list.clear()
                 list.addAll(result.data?.toList()!!)
                 Log.i("WILL_TESTE", list.toString())
             } else {

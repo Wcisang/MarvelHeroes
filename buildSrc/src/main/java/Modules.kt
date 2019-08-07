@@ -5,4 +5,5 @@ object Modules {
     const val detail = ":detail"
     const val home = ":home"
     const val widget = ":widget"
+    const val testutils = ":testutils"
 }

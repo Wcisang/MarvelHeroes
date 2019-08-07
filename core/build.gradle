@@ -44,6 +44,10 @@ dependencies {
     implementation Libs.koin
     implementation Libs.coroutines
 
+    implementation LibsTest.koin
+    implementation LibsTest.mockWebServer
+    implementation LibsTest.mockitoKotlin
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

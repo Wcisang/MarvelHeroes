@@ -12,14 +12,19 @@ object Version {
     const val koin = "2.0.1"
     const val lifecycle = "2.1.0-rc01"
     const val paging = "1.0.1"
+    const val picasso = "2.71828"
+    const val pallete = "28.0.0"
+    const val anko = "0.10.8"
 
     //test
     const val jUnit = "4.12"
     const val mockitoKotlin = "2.1.0"
+    const val mockwebserver = "2.7.5"
 
     //androidTest
     const val runner = "1.2.0"
     const val expresso = "3.2.0"
+    const val barista = "3.1.0"
 }
 
 object Libs {
@@ -33,6 +38,8 @@ object Libs {
     //Layout
     const val constraintLayout =  "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
     const val paging = "android.arch.paging:runtime:${Version.paging}"
+    const val picasso =  "com.squareup.picasso:picasso:${Version.picasso}"
+    const val pallete = "com.android.support:palette-v7:${Version.pallete}"
 
     //Networking
     const val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
@@ -43,6 +50,7 @@ object Libs {
     const val coroutinesAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Version.coroutinesAdapter}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
+    const val anko = "org.jetbrains.anko:anko-common:${Version.anko}"
 
     //Koin
     const val koinViewModel = "org.koin:koin-android-viewmodel:${Version.koin}"
@@ -50,9 +58,12 @@ object Libs {
 }
 
 object LibsTest {
-
+    const val koin = "org.koin:koin-test:${Version.koin}"
+    const val mockWebServer = "com.squareup.okhttp:mockwebserver:${Version.mockwebserver}"
+    const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines}"
 }
 
 object LibsAndroidTest {
-
+    const val barista = "com.schibsted.spain:barista:${Version.barista}"
 }
