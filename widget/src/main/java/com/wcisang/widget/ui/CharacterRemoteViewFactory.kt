@@ -61,7 +61,6 @@ class CharacterRemoteViewFactory(
 //        Log.v(LOG_TAG, "posterUrl = $posterUrl")
 
         val character = list[position]
-        Log.i("WILL_TESTE", "selected ${character.name}")
         views.setTextViewText(R.id.tvCharacterName, character.name)
 
 //        try {

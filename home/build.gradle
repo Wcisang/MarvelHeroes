@@ -43,8 +43,6 @@ dependencies {
     implementation Libs.koinViewModel
     implementation Libs.paging
     implementation Libs.picasso
-    implementation Libs.pallete
-    implementation Libs.anko
 
     testImplementation LibsTest.mockitoKotlin
     testImplementation LibsTest.coroutinesTest

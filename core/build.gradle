@@ -43,6 +43,7 @@ dependencies {
     implementation Libs.moshiConverter
     implementation Libs.koin
     implementation Libs.coroutines
+    implementation Libs.pallete
 
     implementation LibsTest.koin
     implementation LibsTest.mockWebServer

@@ -1,13 +1,11 @@
 package com.wcisang.home.paging
 
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedListAdapter
-import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
@@ -72,11 +70,7 @@ class CharacterAdapter(
                 object : Callback {
                     override fun onSuccess() {
                         val bitmap = (ivCharacterThumb.drawable as BitmapDrawable).bitmap
-                        Palette.from(bitmap).generate {
-                            val light = it?.getDarkVibrantColor(Color.RED) ?: Color.RED
-                            val dark = it?.getDarkMutedColor(Color.BLACK) ?: Color.BLACK
-                            ImageUtils.setGradienteBackground(ivCharBackground, light, dark)
-                        }
+                        ImageUtils.setImageViewBackgroundFromBitmap(ivCharBackground, bitmap)
                     }
 
                     override fun onError(e: Exception?) {
