@@ -17,10 +17,7 @@ import kotlin.coroutines.CoroutineContext
 class CharacterRemoteViewFactory(
     private val context: Context,
     private val getCharactersWidgetUseCase: GetCharactersWidgetUseCase
-) : RemoteViewsService.RemoteViewsFactory, CoroutineScope {
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + SupervisorJob()
+) : RemoteViewsService.RemoteViewsFactory {
 
     private var list = mutableListOf<Character>()
 
@@ -84,7 +81,5 @@ class CharacterRemoteViewFactory(
 
     override fun getViewTypeCount() = 1
 
-    override fun onDestroy() {
-        coroutineContext.cancelChildren()
-    }
+    override fun onDestroy() {}
 }
