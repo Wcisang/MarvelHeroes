@@ -1,20 +1,17 @@
 package com.wcisang.home.paging
 
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedListAdapter
-import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import com.wcisang.core.domain.model.Character
 import com.wcisang.core.state.Resource
-import com.wcisang.core.utils.ImageUtils
+import com.wcisang.customviews.utils.ImageUtils
+import com.wcisang.customviews.views.CharacterListItem
+import com.wcisang.home.R
 import kotlinx.android.synthetic.main.character_list_item.view.*
 
 
@@ -25,10 +22,10 @@ class CharacterAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return if (viewType == com.wcisang.home.R.layout.character_list_loading) {
+        return if (viewType == R.layout.character_list_loading) {
             LoadingHolder(
                 inflater.inflate(
-                    com.wcisang.home.R.layout.character_list_loading,
+                    R.layout.character_list_loading,
                     parent,
                     false
                 )
@@ -36,7 +33,7 @@ class CharacterAdapter(
         } else {
             CharacterHolder(
                 inflater.inflate(
-                    com.wcisang.home.R.layout.character_list_item,
+                    R.layout.character_list_item,
                     parent,
                     false
                 )
@@ -48,7 +45,8 @@ class CharacterAdapter(
         when (holder) {
             is CharacterHolder -> {
                 val character = getItem(position)
-                holder.bindView(character!!, listener)
+                if(character != null)
+                    holder.bindView(character, listener)
             }
             else -> {
                 (holder as LoadingHolder).bindView()
@@ -59,37 +57,25 @@ class CharacterAdapter(
     class CharacterHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView(character: Character, listener: (Character) -> Unit) = with(itemView) {
-            itemView.setOnClickListener { listener(character) }
-            tvCharacterName.text = character.name
-            ivCharBackground.background = null
-            Picasso.get().cancelRequest(ivCharacterThumb)
-            Picasso.get().load(
-                ImageUtils.formattMarvelImage(
-                    character.thumbnail.path,
-                    ImageUtils.ImageType.MEDIUM, character.thumbnail.extension
+            val model = character.mapToListModel()
+            findViewById<CharacterListItem>(R.id.view_character).set(model)
+            setOnClickListener { listener(character) }
+        }
+
+        private fun Character.mapToListModel() : CharacterListItem.ListItemModel {
+            return CharacterListItem.ListItemModel(
+                name = name,
+                image =  ImageUtils.formatMarvelImage(
+                    thumbnail.path,
+                    ImageUtils.ImageType.MEDIUM, thumbnail.extension
                 )
-            ).fit().into(ivCharacterThumb,
-                object : Callback {
-                    override fun onSuccess() {
-                        val bitmap = (ivCharacterThumb.drawable as BitmapDrawable).bitmap
-                        Palette.from(bitmap).generate {
-                            val light = it?.getDarkVibrantColor(Color.RED) ?: Color.RED
-                            val dark = it?.getDarkMutedColor(Color.BLACK) ?: Color.BLACK
-                            ImageUtils.setGradienteBackground(ivCharBackground, light, dark)
-                        }
-                    }
-
-                    override fun onError(e: Exception?) {
-                    }
-
-                })
-
+            )
         }
     }
 
     override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
         with(holder.itemView) {
-            ivCharBackground?.background = null
+            view_character?.recycleBackground()
         }
     }
 
@@ -106,9 +92,9 @@ class CharacterAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (hasExtraRow() && position == itemCount - 1) {
-            com.wcisang.home.R.layout.character_list_loading
+            R.layout.character_list_loading
         } else {
-            com.wcisang.home.R.layout.character_list_item
+            R.layout.character_list_item
         }
     }
 

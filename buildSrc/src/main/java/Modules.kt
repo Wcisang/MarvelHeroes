@@ -5,5 +5,6 @@ object Modules {
     const val detail = ":detail"
     const val home = ":home"
     const val widget = ":widget"
+    const val customviews = ":customviews"
     const val testutils = ":testutils"
 }

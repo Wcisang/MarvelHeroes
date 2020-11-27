@@ -9,7 +9,7 @@ class GetCharactersWidgetUseCase (
 ): UseCase<List<Character>, GetCharactersWidgetUseCase.Params>(){
 
     override suspend fun executeOnBackground(params: Params?): List<Character> {
-        if (params == null) throw IllegalArgumentException()
+        requireNotNull(params)
         val response =  marvelRepository.getCharacters(params.limit, params.offset)
         return response.data.results
     }

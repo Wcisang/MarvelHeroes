@@ -47,7 +47,6 @@ class CharacterWidget : AppWidgetProvider() {
             views.setPendingIntentTemplate(R.id.lvCharacters, clickPendingIntentTemplate)
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
-
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.wcisang.core.utils
+package com.wcisang.customviews.utils
 
 import android.graphics.drawable.GradientDrawable
 import android.view.View
@@ -15,11 +15,11 @@ object ImageUtils {
         INCREDIBLE("incredible")
     }
 
-    fun formattMarvelImage(url: String, imageType: ImageType, extension: String) : String{
+    fun formatMarvelImage(url: String, imageType: ImageType, extension: String) : String{
         return "$url/portrait_${imageType.typeName}.$extension"
     }
 
-    fun setGradienteBackground(v: View, light: Int, dark: Int) {
+    fun setGradientBackground(v: View, light: Int, dark: Int) {
         val shape = GradientDrawable()
         shape.shape = GradientDrawable.RECTANGLE
         shape.orientation = GradientDrawable.Orientation.TR_BL

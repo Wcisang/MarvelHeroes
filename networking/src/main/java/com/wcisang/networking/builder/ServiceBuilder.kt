@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ServiceBuilder {
 
-    const val BASE_URL = "https://gateway.marvel.com:443/"
+    private const val BASE_URL = "https://gateway.marvel.com:443/"
 
     fun <T> createService(service: Class<T>): T {
         return with(Retrofit.Builder()) {

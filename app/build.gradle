@@ -1,29 +1,10 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+apply from: '../android-plugin.gradle'
 
 android {
-    compileSdkVersion Release.compileSdkVersion
     defaultConfig {
         applicationId "com.wcisang.marvelheroes"
-        minSdkVersion Release.minSdkVersion
-        targetSdkVersion Release.targetSdkVersion
-        versionCode Release.versionCode
-        versionName Release.versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
     }
 }
 

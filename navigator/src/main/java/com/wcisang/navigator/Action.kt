@@ -13,9 +13,10 @@ object Action {
     }
 
     private fun getActivityIntent(host: Context, bundle: Bundle?, className: String) : Intent{
-        val intent = Intent(host, Class.forName(className))
-        if (bundle != null)
-            intent.putExtras(bundle)
-        return intent
+        return Intent(host, Class.forName(className)).apply {
+            bundle?.run {
+                this@apply.putExtras(bundle)
+            }
+        }
     }
 }

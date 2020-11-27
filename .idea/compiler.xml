@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.7">
+      <module name="MarvelHeroes.app" target="1.8" />
+      <module name="MarvelHeroes.buildSrc" target="1.8" />
+      <module name="MarvelHeroes.core" target="1.8" />
+      <module name="MarvelHeroes.customviews" target="1.8" />
+      <module name="MarvelHeroes.detail" target="1.8" />
+      <module name="MarvelHeroes.home" target="1.8" />
+      <module name="MarvelHeroes.navigator" target="1.8" />
+      <module name="MarvelHeroes.testutils" target="1.8" />
+      <module name="MarvelHeroes.utils" target="1.8" />
+      <module name="MarvelHeroes.widget" target="1.8" />
+      <module name="networking" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
