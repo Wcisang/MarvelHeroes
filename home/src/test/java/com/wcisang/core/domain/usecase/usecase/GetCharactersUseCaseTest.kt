@@ -1,9 +1,10 @@
-package com.wcisang.home.usecase
+package com.wcisang.core.domain.usecase.usecase
 
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.wcisang.core.data.repository.MarvelRepository
+import com.wcisang.core.domain.usecase.GetCharactersUseCase
 import com.wcisang.core.state.Resource
 import com.wcisang.home.utils.DataFactory
 import kotlinx.coroutines.CancellationException
@@ -14,7 +15,8 @@ import org.junit.Test
 class GetCharactersUseCaseTest {
 
     private val repository: MarvelRepository = mock()
-    private val useCase = GetCharactersUseCase(repository)
+    private val useCase =
+        GetCharactersUseCase(repository)
 
     @Test
     fun `should return a list`() {

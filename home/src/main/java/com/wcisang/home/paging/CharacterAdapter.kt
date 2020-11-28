@@ -3,12 +3,10 @@ package com.wcisang.home.paging
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wcisang.core.domain.model.Character
-import com.wcisang.core.state.Resource
 import com.wcisang.customviews.utils.ImageUtils
 import com.wcisang.customviews.views.CharacterListItem
 import com.wcisang.home.R
@@ -16,42 +14,25 @@ import kotlinx.android.synthetic.main.character_list_item.view.*
 
 
 class CharacterAdapter(
-    private val pagingState: MutableLiveData<Resource<Nothing>>,
     private val listener: (Character) -> Unit
-) : PagedListAdapter<Character, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<Character, CharacterAdapter.CharacterHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return if (viewType == R.layout.character_list_loading) {
-            LoadingHolder(
-                inflater.inflate(
-                    R.layout.character_list_loading,
-                    parent,
-                    false
-                )
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CharacterHolder {
+        return CharacterHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.character_list_item,
+                parent,
+                false
             )
-        } else {
-            CharacterHolder(
-                inflater.inflate(
-                    R.layout.character_list_item,
-                    parent,
-                    false
-                )
-            )
-        }
+        )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is CharacterHolder -> {
-                val character = getItem(position)
-                if(character != null)
-                    holder.bindView(character, listener)
-            }
-            else -> {
-                (holder as LoadingHolder).bindView()
-            }
-        }
+    override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
+        val character = getItem(position)
+        character?.let { holder.bindView(it, listener) }
     }
 
     class CharacterHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -62,10 +43,10 @@ class CharacterAdapter(
             setOnClickListener { listener(character) }
         }
 
-        private fun Character.mapToListModel() : CharacterListItem.ListItemModel {
+        private fun Character.mapToListModel(): CharacterListItem.ListItemModel {
             return CharacterListItem.ListItemModel(
                 name = name,
-                image =  ImageUtils.formatMarvelImage(
+                image = ImageUtils.formatMarvelImage(
                     thumbnail.path,
                     ImageUtils.ImageType.MEDIUM, thumbnail.extension
                 )
@@ -73,47 +54,9 @@ class CharacterAdapter(
         }
     }
 
-    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+    override fun onViewRecycled(holder: CharacterHolder) {
         with(holder.itemView) {
             view_character?.recycleBackground()
-        }
-    }
-
-    class LoadingHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        fun bindView() {
-
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return super.getItemCount() + if (hasExtraRow()) 1 else 0
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (hasExtraRow() && position == itemCount - 1) {
-            R.layout.character_list_loading
-        } else {
-            R.layout.character_list_item
-        }
-    }
-
-    private fun hasExtraRow() =
-        pagingState.value != null && pagingState.value?.status != Resource.Status.SUCCESS
-
-    fun changeLoadingStatus() {
-        pagingState.value?.let {
-            when (it.status) {
-                Resource.Status.LOADING -> {
-                    notifyItemInserted(itemCount + 1)
-                }
-                Resource.Status.SUCCESS -> {
-                    notifyItemRemoved(itemCount)
-                }
-                Resource.Status.ERROR -> {
-
-                }
-            }
         }
     }
 

@@ -11,7 +11,7 @@ object Version {
     const val coroutines = "1.3.0-M2"
     const val koin = "2.0.1"
     const val lifecycle = "2.1.0-rc01"
-    const val paging = "1.0.1"
+    const val paging = "3.0.0-alpha09"
     const val picasso = "2.71828"
     const val pallete = "28.0.0"
     const val anko = "0.10.8"
@@ -37,7 +37,7 @@ object Libs {
 
     //Layout
     const val constraintLayout =  "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
-    const val paging = "android.arch.paging:runtime:${Version.paging}"
+    const val paging = "androidx.paging:paging-runtime:${Version.paging}"
     const val picasso =  "com.squareup.picasso:picasso:${Version.picasso}"
     const val pallete = "com.android.support:palette-v7:${Version.pallete}"
 

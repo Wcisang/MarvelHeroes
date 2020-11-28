@@ -3,37 +3,68 @@ package com.wcisang.home.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wcisang.core.domain.model.Character
-import com.wcisang.core.state.Resource
 import com.wcisang.home.R
 import com.wcisang.home.paging.CharacterAdapter
+import com.wcisang.home.paging.CharacterLoadingAdapter
 import com.wcisang.navigator.Action
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
-    private val viewModel : MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
+    private var job : Job? = null
 
-    private lateinit var adapter : CharacterAdapter
+    private var characterAdapter = CharacterAdapter() {
+        startDetail(it)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupViews()
-        viewModel.getCharacters()
-        registerObserver()
+        getCharacters()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getCharacters()
     }
 
     private fun setupViews() {
-        adapter = CharacterAdapter(viewModel.pagingState) {
-            startDetail(it)
+        rvMarvelCharacters.run {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = characterAdapter.withLoadStateHeaderAndFooter(
+                header = CharacterLoadingAdapter { characterAdapter.retry() },
+                footer = CharacterLoadingAdapter { characterAdapter.retry() }
+            )
         }
-        val layoutManager = LinearLayoutManager(this)
-        rvMarvelCharacters.layoutManager = layoutManager
-        rvMarvelCharacters.adapter = adapter
+
+        characterAdapter.addLoadStateListener { loadState ->
+            rvMarvelCharacters.isVisible = loadState.refresh is LoadState.NotLoading
+            pbMainLoading.isVisible = loadState.refresh is LoadState.Loading
+
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+
+            errorState?.let {
+                Toast.makeText(
+                    this,
+                    "Error : ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     private fun startDetail(character: Character) {
@@ -42,15 +73,12 @@ class MainActivity : AppCompatActivity(){
         startActivity(Action.getDetailActivityIntent(this, bundle))
     }
 
-    private fun registerObserver() {
-        viewModel.characters.observe(this, Observer {
-            adapter.submitList(it)
-        })
-        viewModel.pagingState.observe(this, Observer {
-            if (it.status == Resource.Status.ERROR) {
-                Toast.makeText(this, it.messageError, Toast.LENGTH_LONG).show()
+    private fun getCharacters() {
+        job?.cancel()
+        job = lifecycleScope.launch {
+            viewModel.getCharacters().collectLatest {
+                characterAdapter.submitData(it)
             }
-            adapter.changeLoadingStatus()
-        })
+        }
     }
 }

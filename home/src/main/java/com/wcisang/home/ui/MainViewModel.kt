@@ -1,34 +1,30 @@
 package com.wcisang.home.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import androidx.paging.*
+import com.wcisang.core.data.source.CharacterDataSource
 import com.wcisang.core.domain.model.Character
-import com.wcisang.core.state.Resource
-import com.wcisang.home.paging.CharacterDataSourceFactory
-import com.wcisang.home.usecase.GetCharactersUseCase
+import com.wcisang.core.domain.usecase.GetCharactersUseCase
+import kotlinx.coroutines.flow.Flow
 
 class MainViewModel(
     private val getCharactersUseCase: GetCharactersUseCase
 ) : ViewModel() {
 
     private val limit = 20
-    val pagingState = MutableLiveData<Resource<Nothing>>()
-    lateinit var characters: LiveData<PagedList<Character>>
 
-    fun getCharacters() {
-        val sourceFactory = CharacterDataSourceFactory(getCharactersUseCase,
-            limit, viewModelScope, pagingState)
-        characters = LivePagedListBuilder(sourceFactory, getPageListConfig()).build()
+    fun getCharacters(): Flow<PagingData<Character>> {
+        return Pager(
+            config = getPagingConfig(),
+            pagingSourceFactory = { CharacterDataSource(getCharactersUseCase) }
+        ).flow.cachedIn(viewModelScope)
     }
 
-    private fun getPageListConfig() =
-        PagedList.Config.Builder()
-            .setInitialLoadSizeHint(15)
-            .setEnablePlaceholders(false)
-            .setPageSize(limit)
-            .build()
+    private fun getPagingConfig() =
+        PagingConfig(
+            pageSize = limit,
+            initialLoadSize = 15,
+            enablePlaceholders = false
+        )
 }

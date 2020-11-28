@@ -10,6 +10,7 @@ dependencies {
     implementation Libs.koin
     implementation Libs.coroutines
     implementation Libs.pallete
+    implementation Libs.paging
 
     implementation LibsTest.koin
     implementation LibsTest.mockWebServer
